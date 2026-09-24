@@ -1,16 +1,22 @@
-# Real-Time Chat & Collaboration Platform
+# SyncUp — real-time collaboration app
 
-A team collaboration application supporting one-to-one and group chat, file sharing, and message history. All conversations are securely stored and retrievable.
+SyncUp is a mobile-first Flutter chat client and a horizontally scalable Node/Express + Socket.IO backend. It supports email/password auth, workspace join codes, channels, direct conversations, persisted message history, replies, soft-delete/edit, presence, typing and Cloudinary attachments.
 
-## Key Focus Areas
-- Real-time messaging
-- Group & channel management
-- Chat history persistence
-- Scalable backend APIs
+## Run locally
 
-## Tech Stack
-- Flutter
-- WebSocket
+1. Start infrastructure: `docker compose up -d`.
+2. Copy `backend/.env.example` to `backend/.env` and set `JWT_SECRET`, `JWT_REFRESH_SECRET`, and Cloudinary credentials for uploads.
+3. Install and start the API: `cd backend && npm install && npm run dev`.
+4. In another terminal run Flutter: `flutter pub get && flutter run`.
 
-## Tags
-`Real-time` `WebSocket` `Collaboration`
+Android emulators use the default API URL `http://10.0.2.2:4000/api/v1`. For a physical device, run Flutter with `--dart-define=API_URL=http://YOUR_LAN_IP:4000/api/v1`.
+
+To seed local demo accounts, run `cd backend && npx tsx src/seed.ts`; both accounts use `password123`. Create a workspace with one account and share the returned join code with the other.
+
+## Layout
+
+`lib/` contains Flutter models, services, Riverpod providers, theme, routing, and screens. `backend/src/server.ts` contains the API, persistence models, middleware, upload handling, and Socket.IO event handlers; Docker supplies MongoDB and Redis for local development.
+
+## Realtime contract
+
+Connect Socket.IO with `{auth: {token: accessToken}}`, join a room with `conversation:join`, send messages with `message:send` and a unique `clientId`, and listen for `message:new`, `message:updated`, `message:deleted`, `typing:update`, `presence:update`, and `receipt:update`.
