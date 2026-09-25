@@ -21,6 +21,7 @@ To seed local demo accounts, run `cd backend && npx tsx src/seed.ts`; both accou
 
 - [SyncUp project report](docs/SyncUp_Project_Report.pdf) - implementation details, technology stack, architecture, project structure, API and realtime flow, persistence, security, testing, and deployment verification.
 - [SyncUp working demonstration](docs/SyncUp_demo.mp4) - recorded walkthrough of the implemented application.
+- [Watch the demo online on Cap.so](https://cap.so/s/nkwg7frs67sbsrq) - browser playback link for teachers and reviewers.
 
 The deployed backend is available at `https://syncup-api-production.up.railway.app`. Its health endpoint is `GET /api/v1/health` and returns `{"status":"ok"}` when the service is reachable.
 
